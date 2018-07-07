@@ -1,5 +1,6 @@
 namespace MVC5Course.Models
 {
+    using MVC5Course.Models.newAttribute;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,7 @@ namespace MVC5Course.Models
         
         [StringLength(80, ErrorMessage="欄位長度不得大於 80 個字元")]
         [Required]
+        [IdentityCard]
         public string ProductName { get; set; }
         [Required]
         [Range(10,99999)]
