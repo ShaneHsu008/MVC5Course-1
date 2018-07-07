@@ -14,22 +14,14 @@ namespace MVC5Course.Controllers
     public class ProductsController : Controller
     {
         private FabricsEntities db = new FabricsEntities();
-
-        // GET: Products
-        public ActionResult Index()
-        {
-            var data = db.Product.OrderByDescending(p => p.ProductId).Take(10).ToList();
-
-            return View(data);
-        }
-
+        
         public ActionResult Index2()
         {
             var data = db.Product
                 .Where(p => p.Active == true)
                 .OrderByDescending(p => p.ProductId)
                 .Take(10)
-                .Select(p => new ProduceViewModel()
+                .Select(p => new ProductViewModel()
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
@@ -46,7 +38,7 @@ namespace MVC5Course.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewProduct(ProduceViewModel data)
+        public ActionResult AddNewProduct(ProductViewModel data)
         {
             if (!ModelState.IsValid)
             {
@@ -65,6 +57,40 @@ namespace MVC5Course.Controllers
             this.db.SaveChanges();
 
             return RedirectToAction("Index2");
+        }
+
+        public ActionResult EditOne(int id)
+        {
+            var data = db.Product.Find(id);
+
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult EditOne(int id, ProductViewModel data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var one = db.Product.Find(id);
+
+            one.ProductName = data.ProductName;
+            one.Price = data.Price;
+            one.Stock = data.Stock;
+            
+            db.SaveChanges();
+
+            return RedirectToAction("Index2");
+        }
+
+        // GET: Products
+        public ActionResult Index()
+        {
+            var data = db.Product.OrderByDescending(p => p.ProductId).Take(10).ToList();
+
+            return View(data);
         }
 
         // GET: Products/Details/5

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MVC5Course.Models
 {
-    public class ProduceViewModel
+    public class ProductViewModel
     {
         public int ProductId { get; set; }
         [Required(ErrorMessage = "商品名稱必填")]
