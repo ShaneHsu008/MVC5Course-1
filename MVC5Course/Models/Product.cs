@@ -31,6 +31,7 @@ namespace MVC5Course.Models
         public Nullable<decimal> Price { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString="{0：N0}")]
         public Nullable<bool> Active { get; set; }
 
         [Required]
