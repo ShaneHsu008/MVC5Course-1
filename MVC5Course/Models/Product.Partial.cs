@@ -4,12 +4,19 @@ namespace MVC5Course.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     [MetadataType(typeof(ProductMetaData))]
-    public partial class Product
+    public partial class Product : IValidatableObject
     {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.Price < 15 || this.Stock < 3)
+            {
+                yield return new ValidationResult("便宜太少", new string[] { "Price", "Stock" });
+            }
+        }
     }
-    
+
     public partial class ProductMetaData
     {
         [Required]
