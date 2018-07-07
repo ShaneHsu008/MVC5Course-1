@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages.Html;
 using MVC5Course.Models;
+using Omu.ValueInjecter;
 
 namespace MVC5Course.Controllers
 {
@@ -76,10 +77,23 @@ namespace MVC5Course.Controllers
 
             var one = db.Product.Find(id);
 
-            one.ProductName = data.ProductName;
-            one.Price = data.Price;
-            one.Stock = data.Stock;
-            
+            one.InjectFrom(data);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index2");
+        }
+
+        public ActionResult DeleteOne(int id)
+        {
+            var delOne = db.Product.Find(id);
+
+            if (delOne == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Product.Remove(delOne);
             db.SaveChanges();
 
             return RedirectToAction("Index2");
