@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages.Html;
 using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
@@ -25,7 +26,7 @@ namespace MVC5Course.Controllers
         public ActionResult Index2()
         {
             var data = db.Product
-                .Where( p => p.Active ==true)
+                .Where(p => p.Active == true)
                 .OrderByDescending(p => p.ProductId)
                 .Take(10)
                 .Select(p => new ProduceViewModel()
@@ -37,6 +38,24 @@ namespace MVC5Course.Controllers
                 });
 
             return View(data);
+        }
+
+        public ActionResult AddNewProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddNewProduct(ProduceViewModel data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            //todo
+
+            return RedirectToAction("Index2");
         }
 
         // GET: Products/Details/5
