@@ -64,7 +64,7 @@ namespace MVC5Course.Models
         public string Notes { get; set; }
         [IdentityCard]
         public string IdNumber { get; set; }
-        public Nullable<bool> IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual Occupation Occupation { get; set; }
         public virtual ICollection<Order> Order { get; set; }

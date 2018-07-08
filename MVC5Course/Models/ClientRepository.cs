@@ -12,7 +12,7 @@ namespace MVC5Course.Models
         }
         public override IQueryable<Client> All()
         {
-            return base.All().Where(c => c.IsDelete != true);
+            return base.All().Where(c => c.IsDeleted != true);
         }
 
         public IQueryable<Client> SearchFirstName(string FirstName)
@@ -27,7 +27,7 @@ namespace MVC5Course.Models
 
         public override void Delete(Client entity)
         {
-            entity.IsDelete = true;
+            entity.IsDeleted = true;
         }
     }
 
