@@ -23,6 +23,18 @@ namespace MVC5Course.Controllers
             return View(client.ToList());
         }
 
+        [HttpGet]
+        public ActionResult Search(string FirstName)
+        {
+            if (string.IsNullOrEmpty(FirstName))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var client = db.Client.Where(c => c.FirstName.Contains(FirstName));
+            return View("Index", client);
+        }
+
         // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
