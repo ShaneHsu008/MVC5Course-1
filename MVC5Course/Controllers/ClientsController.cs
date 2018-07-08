@@ -18,20 +18,20 @@ namespace MVC5Course.Controllers
         public ActionResult Index()
         {
             var client = db.Client
-                .Take(10)
+                .Take(30)
                 .Include(c => c.Occupation);
             return View(client.ToList());
         }
 
         [HttpGet]
         public ActionResult Search(string FirstName)
-        {
+        {             
             if (string.IsNullOrEmpty(FirstName))
             {
                 return RedirectToAction("Index");
             }
 
-            var client = db.Client.Where(c => c.FirstName.Contains(FirstName));
+            var client = db.Client.Take(30).Where(c => c.FirstName.Contains(FirstName));
             return View("Index", client);
         }
 

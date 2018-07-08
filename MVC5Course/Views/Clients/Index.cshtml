@@ -12,8 +12,9 @@
 
 @using (Html.BeginForm("Search", "Clients", FormMethod.Get, null))
 {
-    @Html.TextBox("FirstName", null, htmlAttributes: new { @placeholder = "請輸入關鍵字" } )
-    <input type="submit" value="Save" class="btn btn-default" />
+    <span>搜尋條件</span>
+    @Html.TextBox("FirstName", null, htmlAttributes: new { @placeholder = "請輸入FirstName關鍵字" })
+    <input type="submit" value="Search" class="btn btn-default" />
 }
 <table class="table">
     <tr>
