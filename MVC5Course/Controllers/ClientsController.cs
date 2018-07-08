@@ -6,6 +6,7 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
+    [RoutePrefix("newClients")]
     public class ClientsController : Controller
     {
         ClientRepository repo;
@@ -16,12 +17,14 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients
+        [Route("index")]
         public ActionResult Index()
         {
             var client = repo.All().Take(30).Include(c => c.Occupation);
             return View(client.ToList());
         }
 
+        [Route("search")]
         [HttpGet]
         public ActionResult Search(string FirstName)
         {
@@ -29,6 +32,7 @@ namespace MVC5Course.Controllers
             return View("Index", client);
         }
 
+        [Route("details/{id}")]
         // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
@@ -46,6 +50,7 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Create
+        [Route("create")]
         public ActionResult Create()
         {
             ViewBag.OccupationId = new SelectList(repoOcc.All(), "OccupationId", "OccupationName");
@@ -57,6 +62,7 @@ namespace MVC5Course.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("create")]
         public ActionResult Create([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes,IdNumber")] Client client)
         {
             if (ModelState.IsValid)
@@ -70,6 +76,7 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Edit/5
+        [Route("edit/{id}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +97,7 @@ namespace MVC5Course.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("edit/{id}")]
         public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes,IdNumber")] Client client)
         {
             if (ModelState.IsValid)
@@ -104,6 +112,7 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Delete/5
+        [Route("delete/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +130,7 @@ namespace MVC5Course.Controllers
         // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
             Client client = repo.Find(id);
