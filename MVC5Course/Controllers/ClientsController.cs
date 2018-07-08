@@ -7,7 +7,7 @@ using MVC5Course.Models;
 namespace MVC5Course.Controllers
 {
     [RoutePrefix("newClients")]
-    public class ClientsController : Controller
+    public class ClientsController : BaseController
     {
         ClientRepository repo;
         OccupationRepository repoOcc;
