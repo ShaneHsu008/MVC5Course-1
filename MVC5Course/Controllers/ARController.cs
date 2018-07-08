@@ -23,7 +23,16 @@ namespace MVC5Course.Controllers
         public ActionResult PartialViewTest()
         {
             string model = "My Data";
-            return PartialView("ViewTEst",(object)model);
+            return PartialView("ViewTEst", (object)model);
+        }
+
+        public ActionResult FileTest(string dl)
+        {
+            if (string.IsNullOrEmpty(dl))
+            {
+                return File(Server.MapPath("~/App_Data/phpRAhNOk.jpg"), "image/jpeg");
+            }
+            return File(Server.MapPath("~/App_Data/phpRAhNOk.jpg"), "image/jpeg", "World-cup-football.jpg");
         }
     }
 }
