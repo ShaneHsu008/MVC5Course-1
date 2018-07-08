@@ -10,6 +10,10 @@ namespace MVC5Course.Models
         {
             return this.All().FirstOrDefault(c => c.ClientId == id);
         }
+        public override IQueryable<Client> All()
+        {
+            return base.All().Where(c => c.IsDelete != true);
+        }
 
         public IQueryable<Client> SearchFirstName(string FirstName)
         {
@@ -19,6 +23,11 @@ namespace MVC5Course.Models
                 client = client.Where(c => c.FirstName.Contains(FirstName));
             }
             return client;
+        }
+
+        public override void Delete(Client entity)
+        {
+            entity.IsDelete = true;
         }
     }
 
