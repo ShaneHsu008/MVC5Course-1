@@ -25,13 +25,12 @@ namespace MVC5Course.Controllers
 
         [HttpGet]
         public ActionResult Search(string FirstName)
-        {             
-            if (string.IsNullOrEmpty(FirstName))
+        {
+            var client = db.Client.AsQueryable();
+            if (!string.IsNullOrEmpty(FirstName))
             {
-                return RedirectToAction("Index");
+                client = db.Client.Take(30).Where(c => c.FirstName.Contains(FirstName));
             }
-
-            var client = db.Client.Take(30).Where(c => c.FirstName.Contains(FirstName));
             return View("Index", client);
         }
 
