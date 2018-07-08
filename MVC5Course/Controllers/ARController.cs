@@ -19,5 +19,11 @@ namespace MVC5Course.Controllers
             string model = "My Data";
             return View((object)model);
         }
+
+        public ActionResult PartialViewTest()
+        {
+            string model = "My Data";
+            return PartialView("ViewTEst",(object)model);
+        }
     }
 }
