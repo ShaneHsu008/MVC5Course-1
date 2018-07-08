@@ -1,3 +1,6 @@
+using System;
+using System.Data.Entity;
+
 namespace MVC5Course.Models
 {
 	public static class RepositoryHelper
@@ -19,9 +22,9 @@ namespace MVC5Course.Models
 			var repository = new ClientRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
-		}		
+		}
 
-		public static OccupationRepository GetOccupationRepository()
+        public static OccupationRepository GetOccupationRepository()
 		{
 			var repository = new OccupationRepository();
 			repository.UnitOfWork = GetUnitOfWork();
