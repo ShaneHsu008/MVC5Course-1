@@ -11,13 +11,14 @@ namespace MVC5Course.Controllers
     {
         ClientRepository repo;
         OccupationRepository repoOcc;
-        public ClientsController() {
+        public ClientsController()
+        {
             repo = RepositoryHelper.GetClientRepository();
             repoOcc = RepositoryHelper.GetOccupationRepository(repo.UnitOfWork);
         }
 
         // GET: Clients
-        [Route("index")]
+        [Route("")]
         public ActionResult Index()
         {
             var client = repo.All().Take(30).Include(c => c.Occupation);
@@ -47,6 +48,24 @@ namespace MVC5Course.Controllers
                 return HttpNotFound();
             }
             return View(client);
+        }
+
+        [Route("{*name}")]
+        public ActionResult Details2(string name)
+        {
+            string[] names = name.Split('/');
+            string FirstName = names[0];
+            string MiddleName = names[1];
+            string LastName = names[2];
+
+            Client client = repo.All().FirstOrDefault(c => c.FirstName == FirstName
+            && c.MiddleName == MiddleName && c.LastName == LastName);
+
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Details",client);
         }
 
         // GET: Clients/Create
