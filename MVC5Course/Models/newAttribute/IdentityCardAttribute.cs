@@ -16,8 +16,12 @@ namespace MVC5Course.Models.newAttribute
 
         public override bool IsValid(object value)
         {
-            string identityCard = (string)value;
+            if (value == null)
+            {
+                return true;
+            }
 
+            string identityCard = (string)value;
             return isIdentificationId(identityCard);
         }
 
