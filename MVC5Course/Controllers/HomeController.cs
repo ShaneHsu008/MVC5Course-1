@@ -13,12 +13,14 @@ namespace MVC5Course.Controllers
             return View();
         }
 
+        [ShareData]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-            throw new ArgumentException("ERROR");
+            //throw new ArgumentException("ERROR");
+            return View();
         }
 
+        [LocalOnly]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
