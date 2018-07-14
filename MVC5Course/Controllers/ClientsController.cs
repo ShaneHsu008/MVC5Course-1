@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using MVC5Course.ViewModels;
 
 namespace MVC5Course.Controllers
 {
@@ -23,6 +24,36 @@ namespace MVC5Course.Controllers
         {
             var client = repo.All().Take(30).Include(c => c.Occupation);
             return View(client.ToList());
+        }
+
+        [HttpPost]
+        [Route("BatchUpdate")]
+        //public ActionResult BatchUpdate(IList<Client> data)   //也可以這樣寫
+        public ActionResult BatchUpdate(ClientBatchViewModel[] data)
+        {
+            //這邊在找data的資料時會是這樣的樣子
+            //data[0].ClientId
+            //那麼View當中的設計name要成為這個格式，Modelbinding就可以binding到
+            //所以在view中要將data轉為陣列
+
+            if (ModelState.IsValid)
+            {
+                foreach (var item in data)
+                {
+                    var client = repo.Find(item.ClientId);
+                    client.FirstName = item.FirstName;
+                    client.MiddleName = item.MiddleName;
+                    client.LastName = item.LastName;
+                }
+
+                repo.UnitOfWork.Commit();
+
+                return RedirectToAction("Index");
+            }
+
+            ViewData.Model = repo.All().Take(30);
+
+            return View("Index");
         }
 
         [Route("search")]
@@ -65,7 +96,7 @@ namespace MVC5Course.Controllers
             {
                 return HttpNotFound();
             }
-            return View("Details",client);
+            return View("Details", client);
         }
 
         // GET: Clients/Create
