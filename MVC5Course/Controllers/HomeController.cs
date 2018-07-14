@@ -16,8 +16,7 @@ namespace MVC5Course.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
-            return View();
+            throw new ArgumentException("ERROR");
         }
 
         public ActionResult Contact()
