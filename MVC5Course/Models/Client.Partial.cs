@@ -15,6 +15,11 @@ namespace MVC5Course.Models
                 yield return new ValidationResult("經緯度必須同時有值!", new string[] { "Longitude", "Latitude" });
             }
         }
+
+        partial void Init()
+        {
+            this.DateOfBirth = DateTime.Now.AddYears(-18);
+        }
     }
 
     public partial class ClientMetaData
