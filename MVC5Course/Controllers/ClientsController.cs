@@ -148,12 +148,18 @@ namespace MVC5Course.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("edit/{id}")]
-        public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes,IdNumber")] Client client)
+        //參數form只是為了與上方的Edit不衝突，並沒有要使用。
+        public ActionResult Edit(int id,FormCollection form)
         {
-            if (ModelState.IsValid)
+            //取得這筆的所有資料
+            var client = repo.Find(id);
+
+            //這邊才做ModelBinding     
+            //,prefix 這個就是設定欄位名稱必須是 設定的prefix.xxx欄位名稱
+            //,includeProperties 
+            //,valueProvider 會在取得client本來的資料，讓FirstName達成不被編輯的功能。
+            if (TryUpdateModel(client,"",null, new string[] { "FirstName"}))
             {
-                var db = repo.UnitOfWork.Context;
-                db.Entry(client).State = EntityState.Modified;
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
