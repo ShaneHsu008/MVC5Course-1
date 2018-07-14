@@ -327,11 +327,14 @@
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\AR\ViewTest.cshtml" />
     <Content Include="Views\AR\Index.cshtml" />
+    <Content Include="Views\MB\Index.cshtml" />
+    <Content Include="Views\MB\TempDataDemo.cshtml" />
+    <Content Include="Views\MB\ViewBagDemo.cshtml" />
+    <Content Include="Views\MB\ViewDataDemo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\MB\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
