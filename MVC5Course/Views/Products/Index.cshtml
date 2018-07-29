@@ -43,13 +43,16 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
-                @Ajax.ActionLink("Details", "Details", new { id = item.ProductId },new AjaxOptions { UpdateTargetId = "detail" }) |
+                @Ajax.ActionLink("Details", "Details", new { id = item.ProductId }, new AjaxOptions { UpdateTargetId = "detail" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
             </td>
         </tr>
     }
 
 </table>
+
+@Html.PagedListPager(Model as IPagedList, (p) => Url.Action("Index", new { pageNo = p }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing("main"))
+
 <div id="detail"></div>
 
 @section scripts{

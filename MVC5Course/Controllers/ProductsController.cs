@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.WebPages.Html;
 using MVC5Course.Models;
 using Omu.ValueInjecter;
+using X.PagedList;
 
 namespace MVC5Course.Controllers
 {
     public class ProductsController : BaseController
     {
         private FabricsEntities db = new FabricsEntities();
-        
+
         public ActionResult Index2()
         {
             var data = db.Product
@@ -45,8 +42,9 @@ namespace MVC5Course.Controllers
             {
                 return View();
             }
-            
-            var newProduct = new Product() {
+
+            var newProduct = new Product()
+            {
                 ProductId = data.ProductId,
                 ProductName = data.ProductName,
                 Price = data.Price,
@@ -100,9 +98,9 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int pageNo = 1)
         {
-            var data = db.Product.OrderByDescending(p => p.ProductId).Take(10).ToList();
+            var data = db.Product.OrderByDescending(p => p.ProductId).ToPagedList(pageNumber: pageNo, pageSize: 10);
 
             return View(data);
         }
