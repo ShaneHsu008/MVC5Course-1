@@ -5,3 +5,7 @@
 
 <h2>Index</h2>
 
+<script>
+    console.log('容易被攻擊的字串','@Html.Raw(ViewBag.Msg)');
+    console.log('安全的字串','@Ajax.JavaScriptStringEncode(ViewBag.Msg)');
+</script>
